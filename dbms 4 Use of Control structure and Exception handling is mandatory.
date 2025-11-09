@@ -1,0 +1,98 @@
+-- Create main table
+CREATE TABLE Library (
+    book_id NUMBER PRIMARY KEY,
+    book_name VARCHAR2(30),
+    author VARCHAR2(30),
+    price NUMBER
+);
+
+-- Insert data
+INSERT INTO Library VALUES (1, 'DBMS', 'Navathe', 500);
+INSERT INTO Library VALUES (2, 'C Programming', 'Balagurusamy', 400);
+INSERT INTO Library VALUES (3, 'Operating System', 'Galvin', 650);
+INSERT INTO Library VALUES (4, 'Data Structures', 'Lipschutz', 550);
+INSERT INTO Library VALUES (5, 'Java Complete Reference', 'Schildt', 700);
+INSERT INTO Library VALUES (6, 'Python Programming', 'Wesley', 600);
+INSERT INTO Library VALUES (7, 'Computer Networks', 'Tanenbaum', 750);
+INSERT INTO Library VALUES (8, 'Software Engineering', 'Pressman', 680);
+INSERT INTO Library VALUES (9, 'Discrete Mathematics', 'Rosen', 580);
+INSERT INTO Library VALUES (10, 'AI Fundamentals', 'Russell', 800);
+
+-- Create audit table
+CREATE TABLE Library_Audit (
+    audit_id NUMBER PRIMARY KEY,
+    audit_action VARCHAR2(20),
+    book_id NUMBER,
+    book_name VARCHAR2(30),
+    author VARCHAR2(30),
+    price NUMBER,
+    action_date DATE
+);
+
+-- Create sequence for audit IDs
+CREATE SEQUENCE audit_seq START WITH 1 INCREMENT BY 1;
+
+-- BEFORE UPDATE trigger
+CREATE OR REPLACE TRIGGER trg_before_update
+BEFORE UPDATE ON Library
+FOR EACH ROW
+BEGIN
+    INSERT INTO Library_Audit
+    VALUES (audit_seq.NEXTVAL, 'BEFORE_UPDATE', :OLD.book_id, :OLD.book_name, :OLD.author, :OLD.price, SYSDATE);
+END;
+/
+
+-- AFTER UPDATE trigger
+CREATE OR REPLACE TRIGGER trg_after_update
+AFTER UPDATE ON Library
+FOR EACH ROW
+BEGIN
+    INSERT INTO Library_Audit
+    VALUES (audit_seq.NEXTVAL, 'AFTER_UPDATE', :NEW.book_id, :NEW.book_name, :NEW.author, :NEW.price, SYSDATE);
+END;
+/
+
+-- BEFORE DELETE trigger
+CREATE OR REPLACE TRIGGER trg_before_delete
+BEFORE DELETE ON Library
+FOR EACH ROW
+BEGIN
+    INSERT INTO Library_Audit
+    VALUES (audit_seq.NEXTVAL, 'BEFORE_DELETE', :OLD.book_id, :OLD.book_name, :OLD.author, :OLD.price, SYSDATE);
+END;
+/
+
+-- AFTER DELETE trigger
+CREATE OR REPLACE TRIGGER trg_after_delete
+AFTER DELETE ON Library
+FOR EACH ROW
+BEGIN
+    INSERT INTO Library_Audit
+    VALUES (audit_seq.NEXTVAL, 'AFTER_DELETE', :OLD.book_id, :OLD.book_name, :OLD.author, :OLD.price, SYSDATE);
+END;
+/
+
+-- Statement-level BEFORE trigger
+CREATE OR REPLACE TRIGGER trg_stmt_before
+BEFORE UPDATE OR DELETE ON Library
+BEGIN
+    DBMS_OUTPUT.PUT_LINE('Statement-level BEFORE Trigger fired');
+END;
+/
+
+-- Statement-level AFTER trigger
+CREATE OR REPLACE TRIGGER trg_stmt_after
+AFTER UPDATE OR DELETE ON Library
+BEGIN
+    DBMS_OUTPUT.PUT_LINE('Statement-level AFTER Trigger fired');
+END;
+/
+
+-- Test the triggers
+UPDATE Library SET price = 600 WHERE book_id = 1;
+
+SELECT * FROM Library_Audit;
+
+DELETE FROM Library WHERE book_id = 2;
+
+SELECT * FROM Library_Audit;
