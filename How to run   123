@@ -1,0 +1,48 @@
+Query:
+sspm@sspm-OptiPlex-390:~$ sudo su [sudo] password for sspm: root@sspm-OptiPlex-390:/home/sspm# mysql -u root -p Enter password:
+Welcome to the MySQL monitor. Commands end with; or \g. Your MySQL connection id is 4
+Server version: 5.7.26-0ubuntu0.18.04.1 (Ubuntu)
+Copyright (c) 2000, 2019, Oracle and/or its affiliates. All rights reserved.
+Oracle is a registered trademark of Oracle Corporation and/or its affiliates. Other names may be trademarks of their respective
+owners.
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+CREATE:
+mysql> create database library;
+Query OK, 1 row affected (0.22 sec)
+mysql> use library;
+Database changed
+mysql> create table lib(id INTEGER, name varchar(20), purpose varchar(20)); Query OK, 0 rows affected (1.03 sec)
+
+
+
+# # # # # 4-5-6-7 # # # #
+
+
+
+
+SQL*Plus: Release 11.2.0.2.0 Production on Mon Oct 31 10:37:07 2022
+Copyright (c) 1982, 2014, Oracle. All rights reserved.
+SQL> connect
+Enter user-name: system
+Enter password: SsPM
+Connected.
+SQL> create table studmarks1 (name varchar2(10),totol_marks number(5));
+Table created.
+SQL> create table result2(roll_no number(20),name varchar2(20),class varchar2(30));
+Table created.
+
+
+ # # # # # 8-9-10 # # # #
+
+[sspm@localhost ~]$ sudo su
+[sudo] password for sspm: sspm 123
+[root@localhost sspm]# sudo systemctl start mongod.service
+[root@localhost sspm]# mongo
+MongoDB shell version: 2.4.6
+connecting to: test
+>
+use ass11
+switched to db ass11
+Create Collection:
+db.createCollection("Tutorial1")
+{"ok": 1}
