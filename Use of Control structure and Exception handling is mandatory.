@@ -1,0 +1,24 @@
+
+-- Create table
+CREATE TABLE Borrower (
+    Roll_no NUMBER PRIMARY KEY,
+    Name VARCHAR2(50),
+    DateofIssue DATE,
+    NameofBook VARCHAR2(50),
+    Status VARCHAR2(10)
+);
+
+-- Insert records
+INSERT INTO Borrower VALUES (101, 'Gauri', TO_DATE('01-OCT-2025', 'DD-MON-YYYY'), 'DBMS', 'Issued');
+INSERT INTO Borrower VALUES (102, 'Sneha', TO_DATE('05-OCT-2025', 'DD-MON-YYYY'), 'Java', 'Issued');
+INSERT INTO Borrower VALUES (103, 'Amit', TO_DATE('10-OCT-2025', 'DD-MON-YYYY'), 'Python', 'Issued');
+INSERT INTO Borrower VALUES (104, 'Riya', TO_DATE('12-OCT-2025', 'DD-MON-YYYY'), 'CProgramming', 'Issued');
+INSERT INTO Borrower VALUES (105, 'Aditya', TO_DATE('15-OCT-2025', 'DD-MON-YYYY'), 'HTML', 'Issued');
+INSERT INTO Borrower VALUES (106, 'Priya', TO_DATE('18-OCT-2025', 'DD-MON-YYYY'), 'DataScience', 'Issued');
+INSERT INTO Borrower VALUES (107, 'Rahul', TO_DATE('20-SEP-2025', 'DD-MON-YYYY'), 'OS', 'Issued');
+INSERT INTO Borrower VALUES (108, 'Neha', TO_DATE('25-SEP-2025', 'DD-MON-YYYY'), 'Networking', 'Issued');
+INSERT INTO Borrower VALUES (109, 'Sahil', TO_DATE('28-SEP-2025', 'DD-MON-YYYY'), 'AI', 'Issued');
+INSERT INTO Borrower VALUES (110, 'Tanya', TO_DATE('30-SEP-2025', 'DD-MON-YYYY'), 'MachineLearning', 'Issued');
+
+-- Display all data
+SELECT * FROM Borrower;
